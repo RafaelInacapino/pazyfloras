@@ -1,0 +1,100 @@
+{% load static %}
+  {% if view == "index" %}
+<!-- Testimonios -->
+<link rel="stylesheet" href="{% static "/pazyfloras/css/style_testimonials.css" %}">
+<section class="section-testimonials">
+  <div class="container">
+    <h1 class="section-header">Testimonios de Clientes</h1>
+    <div class="testimonials">
+          
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="single-item">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="profile">
+                            <div class="img-area">
+                                <img src="{% static "/pazyfloras/images/1.jpg" %}" alt="">
+                            </div>
+                            <div class="bio">
+                                <h2>Cliente 1</h2>
+                                <h4>Profesion 1</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="content">
+                            <p><span></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel a eius excepturi molestias commodi aliquam error magnam consectetur laboriosam numquam, minima eveniet nostrum sequi saepe ipsam non ea, inventore tenetur! Corporis commodi consequatur molestiae voluptatum!</p>
+                            <p class="socials">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="single-item">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="profile">
+                            <div class="img-area">
+                                <img src="{% static "/pazyfloras/images/2.jpg" %}" alt="">
+                            </div>
+                            <div class="bio">
+                                <h2>Cliente 2</h2>
+                                <h4>Profesion 2</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="content">
+                            <p><span></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel a eius excepturi molestias commodi aliquam error magnam consectetur laboriosam numquam, minima eveniet nostrum sequi saepe ipsam non ea, inventore tenetur! Corporis commodi consequatur molestiae voluptatum!</p>
+                            <p class="socials">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="single-item">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="profile">
+                            <div class="img-area">
+                                <img src="{% static "/pazyfloras/images/3.jpg" %}" alt="">
+                            </div>
+                            <div class="bio">
+                                <h2>Cliente 3</h2>
+                                <h4>Profesion 3</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="content">
+                            <p><span></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel a eius excepturi molestias commodi aliquam error magnam consectetur laboriosam numquam, minima eveniet nostrum sequi saepe ipsam non ea, inventore tenetur! Corporis commodi consequatur molestiae voluptatum!</p>
+                            <p class="socials">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden"></span>
+        </button>
+      </div>
+      
+  </div>
+  </div>
+</section>   
+
+<!-- Fin Testimonios -->
+{% endif %}

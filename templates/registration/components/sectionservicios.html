@@ -1,0 +1,61 @@
+{% load static %}
+<!-- Seccion Productos -->
+
+<div class="container-fluid">
+
+    <div class="row pt-3 pb-0 bg-secondary bg-gradient text-black text-center" style="--bs-bg-opacity: 0.1; --bs-text-opacity: 0.7;">
+
+        {% for ser in servicios %}
+        
+        <div class="col-xs-12 col-md-6 col-lg-4" style=" padding: 1em;">
+            <div class="card bg-transparent bg-gradient" style="border: 0; border-radius: 0.1em;">
+                <img src="{% static ser.imagen %}" class="card-img-top" alt="..." style="border: 0; border-radius: 0.1em;">
+                <div class="card-body bg-transparent bg-gradient">
+                  <h5 class="card-title">{{ser.nombre}}</h5>
+                  <p class="card-text">${{ser.precioSTR}}</p>
+                  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="{{ser.nombremodal}}" style="border: 0; border-radius: 0.1em;">Detalles</button>
+                </div>
+              </div>
+              <div class="modal fade" style="--bs-modal-width: 60%;" id="{{ser.idmodal}}" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    
+                    <div class="modal-header">
+                      
+                    </div>
+                    <div class="modal-body">
+                        <div class="card bg-transparent bg-gradient" style="border: 0; border-radius: 0.1em;">
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <img src="{% static icon %}" class="card-img-top" alt="..." style="border: 0; border-radius: 0.1em;">
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="card-body bg-transparent bg-gradient">
+                                        <h5 class="modal-title">{{ser.nombre}}</h5>
+                                        <p class="card-text">${{ser.precioSTR}}</p>
+                                        <p class="card-text">{{ser.descripcion}}</p>
+                                      </div>
+                                </div>
+        
+                            </div>
+                            
+                            
+                          </div>
+                      
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                      <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Volver</button>
+                      <!-- <button type="button" class="btn btn-primary">Agregar a Carrito</button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+  
+  </div>
+  <!-- Fin Seccion Productos -->

@@ -1,0 +1,27 @@
+<div class="row container-fluid ps-4 pe-1 pt-2 pb-4">
+    
+    <h1 class="text-center text-white">Pedidos Servicios</h1>
+    <div class="col-12 border-0 bg-light bg-gradient rounded-1 ps-4 pe-1 pt-2 pb-2 table-responsive" style="max-height: 50em;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Precio Total</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ped in pedidosservicios %}
+                <tr>
+                    <td class="text-center" scope="row">{{ped.id}}</td>
+                    <td class="text-center">${{ped.precio_total_STR}}</td>
+                    <td class="text-center">{{ped.estado}}</td>
+                    <td class="text-center"><a class="btn btn-warning rounded-0 pt-0" href="/gestiontienda/editarpedidoservicio/{{ped.id}}">Editar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</div>
+

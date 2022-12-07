@@ -1,0 +1,56 @@
+<div class="row p-3 m-3">
+    
+    <!-- Borrar 
+    <div class="col-sm-12 col-md-12 col-lg-1"></div>
+    
+    <div class="col-sm-12 col-md-12 col-lg-10 mt-2 mb-2 p-0 container-fluid">
+        <h1 class="alert alert-secondary bg-light bg-gradient text-center"> Estás en "{{view}}" </h1>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-1"></div>
+    Fin Borrar -->
+
+    <div class="col-sm-12 col-md-12 col-lg-1"></div>
+
+    <div class="col-sm-12 col-md-12 col-lg-3 bg-primary rounded-1 bg-gradient me-4 sectionnav">
+
+        {% include sectioncuentanav %}
+
+    </div>
+
+
+    <style>
+        @media screen and (max-width:992px) {
+            .sectionnav{
+                width: 100%;
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+            }
+            .sectionview{
+                width: 100%;
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+            }
+        }
+
+        @media screen and (min-width:993px) {
+            .sectionnav{
+                width: 25%;
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+            }
+            .sectionview{
+                width: 55.83%;
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+            }
+        }
+    </style>
+    <div class="col-sm-12 col-md-12 col-lg-7 bg-primary rounded-1 bg-gradient sectionview">
+
+        {% include sectioncuentaview %}
+ 
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-1"></div>
+
+</div>

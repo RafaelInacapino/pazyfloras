@@ -1,0 +1,100 @@
+{% load static %}
+  {% if view == "index" %}
+<!-- Testimonios -->
+<link rel="stylesheet" href="{% static "/tienda/css/style_testimonials.css" %}">
+<section class="section-testimonials">
+  <div class="container">
+    <h1 class="section-header">Testimonios de Clientes</h1>
+    <div class="testimonials">
+          
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="single-item">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="profile">
+                            <div class="img-area">
+                                <img src="{% static "/tienda/images/1.jpg" %}" alt="">
+                            </div>
+                            <div class="bio">
+                                <h2>Cristobal López</h2>
+                                <h4>Diseñador Gráfico</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="content">
+                            <p><span></span>Los productos son muy lindos y de buena calidad. La atención tambien es buena, ya que responde los mensajes a la brevedad y fue muy amable. Recomiendo totalmente la tienda.</p>
+                            <p class="socials">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="single-item">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="profile">
+                            <div class="img-area">
+                                <img src="{% static "/tienda/images/2.jpg" %}" alt="">
+                            </div>
+                            <div class="bio">
+                                <h2>José Rojas</h2>
+                                <h4>Arquitecto</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="content">
+                            <p><span></span>Tienen plantas muy bonitas y sus maceteros son lindos. Lo mejor es que la tienda está ubicada en una cafetería, por lo que aparte de comprar algun producto de la tienda, también se puede comprar algun postre o algo para tomar.</p>
+                            <p class="socials">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="single-item">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="profile">
+                            <div class="img-area">
+                                <img src="{% static "/tienda/images/3.jpg" %}" alt="">
+                            </div>
+                            <div class="bio">
+                                <h2>Alvaro Fuentes</h2>
+                                <h4>Ingeniero Comercial</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="content">
+                            <p><span></span>Muy buen servicio a la hora de entregar los productos y ningún problema o error de pedido. Contacto con la tienda en todo momento. Muy recomendada.</p>
+                            <p class="socials">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden"></span>
+        </button>
+      </div>
+      
+  </div>
+  </div>
+</section>   
+
+<!-- Fin Testimonios -->
+{% endif %}

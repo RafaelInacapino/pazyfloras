@@ -1,0 +1,54 @@
+<div class="row container-fluid ps-4 pe-1 pt-2 pb-4">
+    
+    <h1 class="text-center text-white">Productos</h1>
+
+    {% if mensaje %}
+    <div class="col-sm-12 col-md-12 col-lg-1"></div>
+    
+    <div class="col-sm-12 col-md-12 col-lg-10 mt-2 mb-2 p-0 container-fluid">
+        <h1 class="{{clasesmensaje}}"> {{mensaje}}</h1>
+    </div>
+    
+    <div class="col-sm-12 col-md-12 col-lg-1"></div>
+    {% endif %}
+
+    <div class="col-12 border-0 bg-light bg-gradient rounded-1 ps-4 pe-1 pt-2 pb-2 table-responsive" style="max-height: 50em;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Descripción</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Imagen</th>
+                    <th class="text-center">URL</th>
+                    <th class="" colspan="2">Estado</th>
+                    <th class="text-center">Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pro in productos %}
+                <tr>
+                    <td class="text-center" scope="row">{{pro.id}}</td>
+                    <td class="text-center">{{pro.tipo}}</td>
+                    <td class="text-center">{{pro.nombre}}</td>
+                    <td class="text-justify">{{pro.descripcion}}</td>
+                    <td class="text-center">${{pro.precioSTR}}</td>
+                    <td><img style="width: 4em; height: 4em;" src="/media/{{pro.imagen}}"></td>
+                    <td>{{pro.imagen}}</td>
+                    {% if pro.activo %}
+                    <td class="text-center"><span style="color: green;">Activo</span></td>
+                    <td class="text-center"><a class="btn btn-danger rounded-0 pt-0" href="/gestiontienda/cambiarestadoproductos/{{pro.id}}">Desactivar</a></td>
+                    {% else %}
+                    <td class="text-center"><span style="color: red;">Inactivo</span></td>
+                    <td class="text-center"><a class="btn btn-success rounded-0 pt-0" href="/gestiontienda/cambiarestadoproductos/{{pro.id}}">Activar</a></td>
+                    {% endif %}
+                    <td class="text-center"><a class="btn btn-warning rounded-0 pt-0" href="/gestiontienda/editarproducto/{{pro.id}}">Editar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</div>
+

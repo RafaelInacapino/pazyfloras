@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+{%load static%}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% include head %}
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+
+    @media screen and (min-width:0px) and (max-width:360px) {
+      .contenedor{
+        display: block;
+        background-color: rgb(193, 250, 228);
+        padding: 1em;
+        padding-top: 3em;
+        margin-top: 3em;
+      }
+
+      .text{
+        padding-top: 1em;
+        margin-top: 1em;
+        font-family: cursive;
+        font-size: medium;
+        text-align: justify;
+      }
+
+      .img {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+        padding: auto;
+      }
+    }
+      
+    @media screen and (min-width:360px) and (max-width:560px) {
+      .contenedor{
+        margin-top: 3em;
+        display: block;
+        background-color: rgb(193, 250, 228);
+        padding: 2em;
+      }
+
+      .text{
+        padding-top: 1em;
+        margin-top: 1em;
+        font-family: cursive;
+        font-size: medium;
+        text-align: justify;
+      }
+
+      .img {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+        padding: auto;
+      }
+    }
+
+    @media screen and (min-width:560px) and (max-width:780px) {
+      .contenedor{
+        margin-top: 3em;
+        display: flex;
+        background-color: rgb(193, 250, 228);
+        padding: 2em;
+        padding-left: 3em;
+      }
+
+      .text{
+        padding-left: 2em;
+        font-family: cursive;
+        font-size: medium;
+        text-align: justify;
+      }
+
+      .img {
+        float:left;
+        width: 260px;
+        height: 265px;
+      }
+    }
+
+    @media screen and (min-width:780px) and (max-width:880px) {
+      .contenedor{
+        margin-top: 3em;
+        display: flex;
+        background-color: rgb(193, 250, 228);
+        padding: 2em;
+        padding-left: 3em;
+      }
+
+      .text{
+        padding-left: 2em;
+        font-family: cursive;
+        font-size: medium;
+        text-align: justify;
+      }
+
+      .img {
+        float:left;
+        width: 367px;
+        height: 360px;
+      }
+    }
+
+    @media screen and (min-width:880px) and (max-width:940px) {
+      .contenedor{
+        margin-top: 3em;
+        display: flex;
+        background-color: rgb(193, 250, 228);
+        padding: 2em;
+        padding-left: 4em;
+      }
+
+      .text{
+        padding-left: 2em;
+        font-family: cursive;
+        font-size: medium;
+        text-align: justify;
+      }
+
+      .img {
+        float:left;
+        width: 408px;
+        height: 400px;
+      }
+    }
+
+    @media screen and (min-width:940px) {
+      .contenedor{
+        margin-top: 3em;
+        display: flex;
+        background-color: rgb(193, 250, 228);
+        padding: 25px;
+        padding-left: 5em;
+      }
+
+      .text{
+        padding-left: 2em;
+        font-family: cursive;
+        font-size: large;
+        text-align: justify;
+      }
+
+      .img {
+        float:left;
+      }
+    }
+
+    </style>
+  </head>
+  <body>
+
+    {% include header %}
+
+    <!-- Contenido -->
+    <div class="main-content">
+      <h1 class="alert alert-success pt-3 text-center border-0 rounded-0"> Contacto </h1>
+    </div>
+    <div class="contenedor">
+      <img src= "{% static "/tienda/images/fotodecontacto.png" %}" class="img" >
+      <p class="text">También puedes encontrar más trabajos en nuestra red social de Instagram o hablarnos directamente en la red social de WhatsApp donde también puedes ver el catálogo de la tienda.
+      <br><br>
+      <a href="https://www.instagram.com/paz.yfloras/"><img src="{% static "/tienda/images/instagram.png" %}"> Instagram</a>
+      <br><br>
+      <a href="https://wa.me/c/56947625151"><img src="{% static "/tienda/images/whatsapp.png" %}"> WhatsApp</a>
+      </p>
+      <br>
+    </div>
+    <br>
+    <!-- Fin Contenido -->
+
+    {% include footer %}
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- Fin Bootstrap Script -->    
+  </body>
+</html>

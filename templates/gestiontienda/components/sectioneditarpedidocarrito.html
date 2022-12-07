@@ -1,0 +1,20 @@
+<div class="row container-fluid ps-4 pe-1 pt-2 pb-2">
+    
+    <h1 class="text-center text-white">Editar Pedido Carrito</h1>
+    <div class="col-12 border-0 bg-gradient rounded-1 ps-4 pe-1 pt-2 pb-2" style="background-color: rgb(255, 185, 71); max-height: 50em;">
+        <form action="/gestiontienda/editarpedidocarrito/{{id}}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+        
+            <input class="btn btn-warning bg-light bg-gradient center" type="submit" name="opcion" value="Editar">
+            
+            <br>
+            {% if mensaje %}
+                <p class="alert text-danger fw-bolder"> <strong> Se encontraron errores.</strong> 
+                    {{mensaje}}
+                    <br> Creación rechazada. </p>
+            {% endif %}
+        </form>
+    </div>
+</div>

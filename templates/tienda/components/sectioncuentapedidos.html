@@ -1,0 +1,42 @@
+<div class="row container-fluid">
+    <div class="col-12">
+      <h1 class="text-center">Pedidos Cuenta</h1>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Fecha de creacion </th>
+                <th> Fecha de retiro </th>
+                <th> Precio Total </th>
+                <th> Detalle Pedido </th>
+                <th> Estado </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in listadoPedidos %}
+            <tr>
+                <td> {{ x.fecha_creacion }}</td>
+                <td> {{ x.fecha_retiro }}</td>
+                <td> {{ x.precio_total }}</td>
+                <td> {{ x.json }} </td>
+                <td>
+                    {% if x.estado == "En espera" %}
+                        <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal"> En espera </button>
+                    {% endif %}
+                    {% if x.estado == "Pagar" %}
+                        <button type="button" class="btn btn-warning" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal"> <a class="btn btn-warning text-white" href="/tienda/cuenta/pagarpedidoproductos/pagar/{{x.id}}">Pagar</a> </button>
+                    {% endif %}
+                    {% if x.estado == "Pagado" %}
+                        <button type="button" class="btn btn-success" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Pagado</button>
+                    {% endif %}
+                    {% if x.estado == "Retirado" %}
+                        <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Retirado</button>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>

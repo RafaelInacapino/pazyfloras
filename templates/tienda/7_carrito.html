@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+{%load static%}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% include head %}
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  </head>
+  <body>
+
+    {% include header %}
+
+    <!-- Contenido -->
+    <div class="main-content">
+
+      {% if not productos %}
+
+      <h1 class="alert alert-success pt-3 text-center border-0 rounded-0">Carrito Vacío</h1>
+
+      {% else %}
+
+      <h1 class="alert alert-success pt-3 text-center border-0 rounded-0">Carrito</h1>
+
+      <div class="row container-fluid ps-4 pe-1 pt-2 pb-4">
+        {% if mensaje %}
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-10 mt-2 mb-2 p-0 container-fluid">
+            <h1 class="{{clasesmensaje}}"> {{mensaje}}</h1>
+        </div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+        {% endif %}
+        
+        <div class="col-12 border-0 bg-light bg-gradient rounded-1 ps-4 pe-1 pt-2 pb-2 table-responsive" style="max-height: 50em;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Descripción</th>
+                        <th class="text-center">Precio</th>
+                        <th class="text-center">Imagen</th>
+                        <th class="text-center">Cantidad</th>
+                        <th class="text-center">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pro in productos %}
+                    <tr>
+                        <td class="text-center">{{pro.tipo}}</td>
+                        <td class="text-center">{{pro.nombre}}</td>
+                        <td class="text-justify">{{pro.descripcion}}</td>
+                        <td class="text-center">${{pro.precioSTR}}</td>
+                        <td class="text-center"><img style="width: 4em; height: 4em;" src="/media/{{pro.imagen}}"></td>
+                        <td class="text-center">{{pro.cantidad}}</td>
+                        <td class="text-center"><a class="btn btn-danger" href="/tienda/eliminarProducto/{{pro.id}}">Eliminar</a></td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>  
+            <p class="text-center">
+              <form method="POST" action="/tienda/pedirCarrito">
+                {% csrf_token %}
+                <p class="text-center">
+                  <span style="font-size: 2em;" >Precio Total: $ {{carritopreciototalSTR}}</span><br><br>
+                  <button type="submit" class="btn btn-primary text-center" value="enviar">
+                    Solicitar Pedido del Carrito
+                  </button>
+                </p>
+              </form>
+            </p>
+        </div>
+      </div>
+      {% endif %}
+      
+      
+      
+    </div>
+    <!-- Fin Contenido -->
+
+    {% include footer %}
+
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!-- Fin Bootstrap Script -->    
+  </body>
+</html>

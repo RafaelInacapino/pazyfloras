@@ -1,0 +1,48 @@
+<div class="row container-fluid">
+    <div class="col-12">
+      <h1 class="text-center">Servicios Cuenta</h1>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Servicio </th>
+                <th> Duracion </th>
+                <th> Fecha de Inicio </th>
+                <th> Fecha de Termino </th>
+                <th> Area </th>
+                <th> Precio Total </th>
+                <th> Contrato </th>
+                <th> Estado </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in listadoServicio %}
+            <tr>
+                <td> {{ x.nombre }}</td>
+                <td> {{ x.duracion }}</td>
+                <td> {{ x.fecha_inicio }}</td>
+                <td> {{ x.fecha_termino }} </td>
+                <td> {{ x.area }} </td>
+                <td> {{ x.precio_total }} </td>
+                <td> {{ x.json }} </td>
+                <td>
+                    {% if x.estado == "En espera" %}
+                        <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal"> En espera </button>
+                    {% endif %}
+                    {% if x.estado == "Pagar" %}
+                        <button type="button" class="btn btn-warning" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal"> <a class="btn btn-warning text-white" href="/tienda/cuenta/pagarpedidoservicio/pagar/{{x.id}}">Pagar</a> </button>
+                    {% endif %}
+                    {% if x.estado == "Pagado" %}
+                        <button type="button" class="btn btn-success" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Pagado</button>
+                    {% endif %}
+                    {% if x.estado == "Retirado" %}
+                        <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Retirado</button>
+                    {% endif %}
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+

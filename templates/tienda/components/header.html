@@ -1,0 +1,157 @@
+{% load static %}
+  
+    <!-- Header -->
+        <!-- Navbar Style -->
+        <style>
+          .header{position: relative;
+          width: 100%;
+          }
+
+          .header-inner{position: absolute;
+          top: 0;
+          left: 0;
+          width:100%;
+          z-index: 99;
+          background-color: white;
+          }
+
+          .nav-item .nav-link{display: block;
+          line-height: 36px;
+          text-transform: capitalize;
+          font-size: 16px;
+          font-weight: 500;
+          transition: 0.15s;}
+
+          .navbar-scroll{
+          
+          background-color: white;
+          padding: 0;
+          position: fixed;
+          top:0;
+          z-index: 99;
+          box-shadow:0px 1px 10px rgba(0,0,0,0.4);
+          transition-duration: 0.6s; }
+
+          .navbar-scroll .nav-item .nav-link{color: black;
+            
+          
+          }
+        </style>
+        <!-- Fin Navbar Style -->
+        <header class="header">
+          <div class="header-inner">
+            <!-- Comienzo Navbar -->
+            <div class="container-fluid px-lg-5">
+            <nav class="navbar navbar-expand-lg bg-gradient">
+                <div class="container-fluid">
+                  <a class="navbar-brand ms-2" href="/tienda/index"><image src="{% static "/tienda/images/icono_header_pazyfloras.png" %}" style="width:2.6em ; height: 2.6em;"></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse container-fluid ms-1" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      
+                      <li class="nav-item">
+                        {% if view == "index" %}
+                        <a class="nav-link active" aria-current="page" href="/tienda/index">Inicio</a>
+                        {% else %}
+                        <a class="nav-link" aria-current="page" href="/tienda/index">Inicio</a>
+                        {% endif %}
+                      </li>
+                      <li class="nav-item dropdown">
+                        {% if view == "productos" or view == "maceteros" or view == "vasijas" or view == "plantas" %}
+                        <a class="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catálogo
+                        </a>
+                        {% else %}
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catálogo
+                        </a>
+                        {% endif %}
+                        <ul class="dropdown-menu bg-light bg-gradient" style="border-radius: 0;">
+                          <li><a class="dropdown-item" href="/tienda/maceteros">Maceteros</a></li>
+                          <li><a class="dropdown-item" href="/tienda/vasijas">Vasijas</a></li>
+                          <li><a class="dropdown-item" href="/tienda/plantas">Plantas</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="/tienda/productos">Todos los Productos</a></li>
+                        </ul>
+                      </li>
+                      
+                      <li class="nav-item">
+                        {% if view == "servicios" %}
+                        <a class="nav-link active" href="/tienda/servicios">Servicios</a>
+                        {% else %}
+                        <a class="nav-link" href="/tienda/servicios">Servicios</a>
+                        {% endif %}
+                      </li>
+                      {% if user.is_authenticated %}
+                      <li class="nav-item">
+                        {% if view == "carrito" %}
+                        <a class="nav-link active" href="/tienda/cuenta/carrito">Carrito</a>
+                        {% else %}
+                        <a class="nav-link" href="/tienda/cuenta/carrito">Carrito</a>
+                        {% endif %}
+                      </li>
+                      {% endif %}
+
+                      <li class="nav-item">
+                        {% if view == "quienessomos" %}
+                        <a class="nav-link active" href="/tienda/quienessomos">Quiénes Somos</a>
+                        {% else %}
+                        <a class="nav-link" href="/tienda/quienessomos">Quiénes Somos</a>
+                        {% endif %}
+                      </li>
+
+                      <li class="nav-item">
+                        {% if view == "contacto" %}
+                        <a class="nav-link active" href="/tienda/contacto">Contacto</a>
+                        {% else %}
+                        <a class="nav-link" href="/tienda/contacto">Contacto</a>
+                        {% endif %}
+                      </li>
+
+                      {% if user.is_authenticated %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="/tienda/cuenta/logout">Salir</a>
+                      </li>
+                      {% endif %}
+
+                      {% if user.is_superuser %}
+                      <li class="nav-item  ms-lg-5 border-danger border-4 rounded-1 border-primary" style="border-style: solid;">
+                        <a class="nav-link ms-5 ms-lg-0" href="/gestiontienda/productos">Ver vista Administración</a>
+                      </li>
+                      {% endif %}
+                      
+                    </ul>
+                    {% if forView == "perfil" %}
+                    <a class="nav-link text-secondary" style="color: black;" href="/tienda/cuenta/perfil"><svg style="margin-bottom: 0.3em;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-person-fill" viewBox="0 0 16 16">
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg><span style="color: black;">Mi Perfil</span></a>
+                    {% else %}
+                    <a class="nav-link text-secondary" href="/tienda/cuenta/perfil"><svg style="margin-bottom: 0.3em;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>Mi Perfil</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </nav>
+            </div>
+
+            <!-- Fin Navbar -->   
+          </div>
+        </header>
+        <div style="height: 5em;"></div>
+        <!-- Navbar Scripts -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+          $(function(){
+            var navbar = $('.header-inner');
+            $(window).scroll(function(){
+              if($(window).scrollTop() <=40){
+                navbar.removeClass('navbar-scroll');
+              }else{
+                navbar.addClass('navbar-scroll');
+              }
+            });
+          });
+        </script>
+        <!-- Fin Navbar Scripts -->
+    <!-- Fin Header --> 

@@ -1,0 +1,57 @@
+{% load static %}
+  {% if view == "index" %}
+  <!-- Carousel -->
+
+      <section id="slider" class="pt-5">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static "/pazyfloras/css/owl.carousel.min.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "/pazyfloras/css/styles.css" %}">
+        <div class="container">
+          
+            <section id="slider" class="">
+                <div class="container">
+                  <h1 class="text-center"><b>Paz y Floras</b></h1>
+                    <div class="slider">
+                              <div class="owl-carousel">
+                                  <div class="slider-card">
+                                      <div class="d-flex justify-content-center align-items-center mb-4">
+                                          <img src= "{% static "/pazyfloras/images/imagen1.png" %}" alt="" >
+                                      </div>
+                                      <h5 class="mb-0 text-center"><b>Paz y Floras</b></h5>
+                                      <p class="text-center p-4"></p>
+                                  </div>
+                                  <div class="slider-card">
+                                      <div class="d-flex justify-content-center align-items-center mb-4">
+                                          <img src="{% static "/pazyfloras/images/imagen2.png" %}" alt="">
+                                      </div>
+                                      <h5 class="mb-0 text-center"><b>Paz y Floras</b></h5>
+                                      <p class="text-center p-4"></p>
+                                  </div>
+                                  <div class="slider-card">
+                                      <div class="d-flex justify-content-center align-items-center mb-4">
+                                          <img src="{% static "/pazyfloras/images/imagen3.png" %}" alt="">
+                                      </div>
+                                      <h5 class="mb-0 text-center"><b>Paz y Floras</b></h5>
+                                      <p class="text-center p-4"></p>
+                                  </div>
+                                  <div class="slider-card">
+                                      <div class="d-flex justify-content-center align-items-center mb-4">
+                                          <img src="{% static "/pazyfloras/images/imagen4.png" %}" alt="">
+                                      </div>
+                                      <h5 class="mb-0 text-center"><b>Paz y Floras</b></h5>
+                                      <p class="text-center p-4"></p>
+                                  </div>
+                              </div>
+                          </div>
+                </div>
+            </section>
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script> 
+        <script src="{% static "/pazyfloras/js/owl.carousel.min.js" %}"></script>
+        <script src="{% static "/pazyfloras/js/script.js" %}"></script>
+      </section>
+
+      <!-- Fin Carousel -->
+      {% endif %}

@@ -1,0 +1,115 @@
+<div class="row container-fluid ps-4 pe-1 pt-2 pb-2">
+  <ul class="nav nav-tabs flex-column border-0 bg-light bg-gradient rounded-1 ps-4 pe-1 pt-2 pb-2">
+    {% if view == "productos" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/productos">Productos</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/productos">Productos</a>
+    </li>
+    {% endif %}
+    {% if view == "crearproducto" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/crearproducto">Crear Producto</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/crearproducto">Crear Producto</a>
+    </li>
+    {% endif %}
+    {% if view == "editarproducto" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" >Editar Producto</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link disabled rounded" >Editar Producto</a>
+    </li>
+    {% endif %}
+    {% if view == "servicios" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/servicios">Servicios</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/servicios">Servicios</a>
+    </li>
+    {% endif %}
+    {% if view == "crearservicio" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/crearservicio">Crear Servicio</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/crearservicio">Crear Servicio</a>
+    </li>
+    {% endif %}
+    {% if view == "editarservicio" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link disabled active rounded">Editar Servicio</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link disabled rounded">Editar Servicio</a>
+    </li>
+    {% endif %}
+    {% if view == "pedidoscarrito" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/pedidoscarrito">Pedidos Carritos</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/pedidoscarrito">Pedidos Carritos</a>
+    </li>
+    {% endif %}
+    {% if view == "editarpedidocarrito" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded">Gestionar Pedido</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link disabled rounded">Gestionar Pedido</a>
+    </li>
+    {% endif %}
+    {% if view == "pedidosservicio" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/pedidosservicio">Pedidos Servicios</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/pedidosservicio">Pedidos Servicios</a>
+    </li>
+    {% endif %}
+    {% if view == "editarpedidoservicio" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded">Gestionar Servicio</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link disabled rounded">Gestionar Servicio</a>
+    </li>
+    {% endif %}
+    
+    <!-- Por implementar TODO -->
+    <!-- 
+    {% if view == "datostienda" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/datostienda">Datos Tienda</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/datostienda">Datos Tienda</a>
+    </li>
+    {% endif %}
+    {% if view == "editardatostienda" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/gestiontienda/editardatostienda">Editar Datos Tienda</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/gestiontienda/editardatostienda">Editar Datos Tienda</a>
+    </li>
+    {% endif %} -->
+  </ul>
+</div>
