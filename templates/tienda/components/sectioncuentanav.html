@@ -18,6 +18,15 @@
       <a class="nav-link rounded" href="/tienda/cuenta/mispedidos">Mis pedidos</a>
     </li>
     {% endif %}
+    {% if view == "perfildetallepedido" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/tienda/cuenta/detallepedido">Detalle Pedido</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/tienda/cuenta/detallepedido">Detalle Pedido</a>
+    </li>
+    {% endif %}
     {% if view == "perfilservicios" %}
     <li class="nav-item m-1 border-0">
       <a class="nav-link active rounded" href="/tienda/cuenta/misservicios">Mis servicios</a>
@@ -25,6 +34,15 @@
     {% else %}
     <li class="nav-item m-1 border-0">
       <a class="nav-link rounded" href="/tienda/cuenta/misservicios">Mis servicios</a>
+    </li>
+    {% endif %}
+    {% if view == "perfildetalleservicio" %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link active rounded" href="/tienda/cuenta/detallepedido">Términos Servicio</a>
+    </li>
+    {% else %}
+    <li class="nav-item m-1 border-0">
+      <a class="nav-link rounded" href="/tienda/cuenta/detalleservicio">Términos Servicio</a>
     </li>
     {% endif %}
   </ul>

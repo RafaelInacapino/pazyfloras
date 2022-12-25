@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Detalles del pedido</h1>
+        {% if mensaje %}
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-10 mt-2 mb-2 p-0 container-fluid">
+            <h1 class="{{clasesmensaje}}"> {{mensaje}}</h1>
+        </div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+        {% endif %}
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><span style="display: block; text-align: center;"> Producto </span>
+                    <th><span style="display: block; text-align: center;"> Tipo </span>
+                    <th><span style="display: block; text-align: center;"> Imagen  </span>
+                    <th><span style="display: block; text-align: center;"> Precio </span>
+                    <th><span style="display: block; text-align: center;"> Cantidad </span>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in productos %}
+                <tr>
+                    <td> <span style="display: block; text-align: center;">{{ x.producto }}</span>
+                    <td> <span style="display: block; text-align: center;">{{ x.tipo }}</span>
+                    <td> <span style="display: block; text-align: center;"><img style="width: 4em; height: 4em;" src="/media/{{ x.imagen }}" ></span>
+                    <td> <span style="display: block; text-align: center;">${{ x.precioSTR }}</span>
+                    <td> <span style="display: block; text-align: center;">{{ x.cantidad }}</span>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>

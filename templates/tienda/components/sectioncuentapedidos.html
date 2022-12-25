@@ -1,42 +1,62 @@
 <div class="row container-fluid">
     <div class="col-12">
       <h1 class="text-center">Pedidos Cuenta</h1>
+        {% if mensaje %}
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-10 mt-2 mb-2 p-0 container-fluid">
+            <h1 class="{{clasesmensaje}}"> {{mensaje}}</h1>
+        </div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-1"></div>
+        {% endif %}
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th> Fecha de creacion </th>
-                <th> Fecha de retiro </th>
-                <th> Precio Total </th>
-                <th> Detalle Pedido </th>
-                <th> Estado </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for x in listadoPedidos %}
-            <tr>
-                <td> {{ x.fecha_creacion }}</td>
-                <td> {{ x.fecha_retiro }}</td>
-                <td> {{ x.precio_total }}</td>
-                <td> {{ x.json }} </td>
-                <td>
-                    {% if x.estado == "En espera" %}
-                        <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal"> En espera </button>
-                    {% endif %}
-                    {% if x.estado == "Pagar" %}
-                        <button type="button" class="btn btn-warning" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal"> <a class="btn btn-warning text-white" href="/tienda/cuenta/pagarpedidoproductos/pagar/{{x.id}}">Pagar</a> </button>
-                    {% endif %}
-                    {% if x.estado == "Pagado" %}
-                        <button type="button" class="btn btn-success" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Pagado</button>
-                    {% endif %}
-                    {% if x.estado == "Retirado" %}
-                        <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;" data-bs-dismiss="modal">Retirado</button>
-                    {% endif %}
-                </td>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><span style="display: block; text-align: center;"> Fecha del Pedido </span>
+                    <th><span style="display: block; text-align: center;"> Fecha para Retiro </span>
+                    <th><span style="display: block; text-align: center;"> Precio Total </span>
+                    <th><span style="display: block; text-align: center;"> Detalle del Pedido </span>
+                    <th><span style="display: block; text-align: center;"> Estado </span>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in listadoPedidos %}
+                <tr>
+                    <td> {{ x.fecha_creacion }}
+                        {% if x.fecha_retiro == None %}
+                            <td style="text-align: center;"> Sin determinar </td>
+                        
+                        {% else %}
+                            <td style="text-align: center;"> {{ x.fecha_retiro }} </td>
+                        {% endif %}
 
-            </tr>
-            {% endfor %}
+                    <td style="text-align: center;"> ${{ x.precio_totalSTR }}
+                    <td style="text-align: center;"> 
+                        <form action="/tienda/cuenta/verdetallepedido/{{x.id}}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning" style="border: 0; border-radius: 0.1em;"> Ver Detalle</button>
+                        </form>
+                    <td style="text-align: center;">
+                        {% if x.estado == "En espera" %}
+                            <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;"> En espera </button>
+                        {% endif %}
+                        {% if x.estado == "Pagar" %}
+                            <a class="btn btn-warning" href="https://wa.me/c/56947625151" style="border: 0; border-radius: 0.1em;">Pagar</a>
+                        {% endif %}
+                        {% if x.estado == "Pagado" %}
+                            <button type="button" class="btn btn-success" style="border: 0; border-radius: 0.1em;">Pagado</button>
+                        {% endif %}
+                        {% if x.estado == "Retirado" %}
+                            <button type="button" class="btn btn-secondary" style="border: 0; border-radius: 0.1em;">Retirado</button>
+                        {% endif %}
 
-        </tbody>
-    </table>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
 </div>

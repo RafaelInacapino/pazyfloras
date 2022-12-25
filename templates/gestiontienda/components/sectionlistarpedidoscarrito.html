@@ -6,8 +6,10 @@
             <thead>
                 <tr>
                     <th class="text-center">Id</th>
+                    <th class="text-center">Usuario</th>
                     <th class="text-center">Precio Total</th>
                     <th class="text-center">Estado</th>
+                    <th class="text-center">Detalle Pedido</th>
                     <th class="text-center">Editar</th>
                 </tr>
             </thead>
@@ -15,8 +17,15 @@
                 {% for ped in pedidoscarritos %}
                 <tr>
                     <td class="text-center" scope="row">{{ped.id}}</td>
+                    <td class="text-center" scope="row">{{ped.username}}</td>
                     <td class="text-center">${{ped.precio_total_STR}}</td>
+                    
                     <td class="text-center">{{ped.estado}}</td>
+                    <td style="text-align: center;"> 
+                        <form action="/gestiontienda/verdetallepedido/{{ped.id}}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning" style="border: 0; border-radius: 0.1em;"> Ver Detalle</button>
+                        </form>
                     <td class="text-center"><a class="btn btn-warning rounded-0 pt-0" href="/gestiontienda/editarpedidocarrito/{{ped.id}}">Editar</a></td>
                 </tr>
                 {% endfor %}

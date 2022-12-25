@@ -36,6 +36,13 @@
         margin: auto;
         padding: auto;
       }
+      
+      #map {
+        padding-left: 5%;
+        width: 90%;
+        height: 400px;
+      }
+
     }
       
     @media screen and (min-width:360px) and (max-width:560px) {
@@ -54,12 +61,14 @@
         text-align: justify;
       }
 
-      .img {
-        width: 100%;
-        text-align: center;
-        margin: auto;
-        padding: auto;
+
+      #map {
+        padding-left: 5%;
+        width: 90%;
+        height: 400px;
       }
+
+      
     }
 
     @media screen and (min-width:560px) and (max-width:780px) {
@@ -72,7 +81,6 @@
       }
 
       .text{
-        padding-left: 2em;
         font-family: cursive;
         font-size: medium;
         text-align: justify;
@@ -103,12 +111,12 @@
 
       .img {
         float:left;
-        width: 367px;
+        width: auto;
         height: 360px;
       }
     }
 
-    @media screen and (min-width:880px) and (max-width:940px) {
+    @media screen and (min-width:940px) and (max-width:1260px) {
       .contenedor{
         margin-top: 3em;
         display: flex;
@@ -118,7 +126,6 @@
       }
 
       .text{
-        padding-left: 2em;
         font-family: cursive;
         font-size: medium;
         text-align: justify;
@@ -129,9 +136,18 @@
         width: 408px;
         height: 400px;
       }
+
+      .divmap {
+        width: 10%;
+      }
+
+      #map {
+        width: 1000px;
+        height: 400px;
+      }
     }
 
-    @media screen and (min-width:940px) {
+    @media screen and (min-width:1260px) {
       .contenedor{
         margin-top: 3em;
         display: flex;
@@ -139,6 +155,8 @@
         padding: 25px;
         padding-left: 5em;
       }
+
+      
 
       .text{
         padding-left: 2em;
@@ -148,11 +166,42 @@
       }
 
       .img {
-        float:left;
+        width: 408px;
+        height: 400px;
+      }
+
+      #map {
+        width: 408px;
+        height: 400px;
       }
     }
 
     </style>
+
+    <!-- Style Maps -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9K1i3R8RY3smWTH3i5Aa0_DyAeUGT75k&callback=initMap&v=weekly"
+        defer
+      ></script>
+    <style type="text/css" >
+          /* 
+      * Always set the map height explicitly to define the size of the div element
+      * that contains the map. 
+      */
+      
+    </style>
+    <script>
+  let map;
+  
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: -33.43958314686885, lng: -70.60175719095804 },
+      zoom: 18,
+    });
+  }
+    </script>
+    <!-- Fin Style Maps -->
+
   </head>
   <body>
 
@@ -162,16 +211,38 @@
     <div class="main-content">
       <h1 class="alert alert-success pt-3 text-center border-0 rounded-0"> Contacto </h1>
     </div>
-    <div class="contenedor">
-      <img src= "{% static "/tienda/images/fotodecontacto.png" %}" class="img" >
-      <p class="text">También puedes encontrar más trabajos en nuestra red social de Instagram o hablarnos directamente en la red social de WhatsApp donde también puedes ver el catálogo de la tienda.
-      <br><br>
-      <a href="https://www.instagram.com/paz.yfloras/"><img src="{% static "/tienda/images/instagram.png" %}"> Instagram</a>
-      <br><br>
-      <a href="https://wa.me/c/56947625151"><img src="{% static "/tienda/images/whatsapp.png" %}"> WhatsApp</a>
-      </p>
-      <br>
+    <div class="row" style="background-color: rgb(193, 250, 228); padding-top: 2em;">
+      <div class="col-12 col-md-12 col-xl-1">
+      </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <img src= "{% static "/tienda/images/fotodecontacto.png" %}" class="img">
+          
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+          <p class="text">También puedes encontrar más trabajos en nuestra red social de Instagram o hablarnos directamente en la red social de WhatsApp donde también puedes ver el catálogo de la tienda.
+          <br>
+          <br>
+          <a href="https://www.instagram.com/paz.yfloras/"><img src="{% static "/tienda/images/instagram.png" %}"> Instagram</a>
+          <br>
+          <br>
+          <a href="https://wa.me/c/56947625151"><img src="{% static "/tienda/images/whatsapp.png" %}"> WhatsApp</a>
+          </p>
+          <br>
+          <br>
+        </div>
+        <div class="col-12 col-md-12 col-xl-3">
+          <div class="divmap"></div>
+          <!-- Map -->  
+          <div id="map" >
+          <!-- Fin Map -->
+          </div>
+        <div class="divmap"></div>
+      <div class="col-12 col-md-12 col-xl-1">
+      </div>
+      </div>
     </div>
+    
+    
     <br>
     <!-- Fin Contenido -->
 
