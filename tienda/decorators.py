@@ -18,3 +18,5 @@ def superuser_required(view_func):
         print("NO AUTENTICADO")
         return redirect('/tienda/index')       
     return wrapper_func
+
+

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from tienda.models import Producto, Servicio, PedidoCarrito, PedidoServicio
+from tienda.models import Producto, Servicio, PedidoCarrito, PedidoServicio, CarritoBoleta
 from django.contrib.auth.models import User
 from tienda.decorators import login_required
 import datetime
@@ -243,8 +243,12 @@ def pedirCarrito(request):
     # request.session["carrito"] = []
     
     if request.method == "POST":
-        pedidoCarrito = PedidoCarrito(user=User.objects.get(id=request.user.id),fecha_creacion=datetime.date.today(),precio_total=request.session["carritopreciototal"], json="")
+        pedidoCarrito = PedidoCarrito(user=User.objects.get(id=request.user.id),fecha_creacion=datetime.date.today(),precio_total=request.session["carritopreciototal"])
         pedidoCarrito.save()
+        for producto in request.session["carrito"]:
+            productoData = Producto.objects.get(id=int(producto[0]))
+            CarritoBoleta(carrito=pedidoCarrito.id,producto=productoData.nombre, tipo=productoData.tipo,imagen=productoData.imagen,precio=productoData.precio,cantidad=producto[1]).save()
+
         request.session["mensaje"] = "Pedido solicitado"
         request.session["clasesmensaje"] = "alert alert-success bg-light bg-gradient text-center"
         request.session["carrito"] = []
@@ -339,6 +343,7 @@ def eliminarProducto(request, id):
             break
     return redirect('/tienda/cuenta/carrito')    
 
+@login_required
 def pedirServicio(request, id):
     # context dict
     context = {}
@@ -367,7 +372,7 @@ def pedirServicio(request, id):
 
     if request.method == "POST":
         servicio = Servicio.objects.get(id=id)
-        pedidoServicio = PedidoServicio(user=User.objects.get(id=request.user.id),fecha_inicio=datetime.date.today(),precio_total=servicio.precio)
+        pedidoServicio = PedidoServicio(user=User.objects.get(id=request.user.id),fecha_creacion=datetime.date.today(),precio_total=servicio.precio,nombre=servicio.nombre)
         pedidoServicio.save()
         request.session["mensaje"] = "Pedido de Servicio solicitado"
         request.session["clasesmensaje"] = "alert alert-success bg-gradient text-center"
@@ -474,6 +479,15 @@ def registro(request):
 
 @login_required
 def perfil(request):
+
+    try:
+        context["mensaje"] = request.session["mensaje"] 
+        request.session["mensaje"] = ""       
+        context["clasesmensaje"] = request.session["clasesmensaje"]
+        request.session["clasesmensaje"] = ""
+    except:
+        pass
+
     # context dict
     context = {}
 
@@ -503,8 +517,17 @@ def perfil(request):
 
 @login_required
 def perfilpedidos(request):
+
     # context dict
     context = {}
+
+    try:
+        context["mensaje"] = request.session["mensaje"] 
+        request.session["mensaje"] = ""       
+        context["clasesmensaje"] = request.session["clasesmensaje"]
+        request.session["clasesmensaje"] = ""
+    except:
+        pass    
 
     # view url name
     context["view"] = "perfilpedidos"
@@ -528,15 +551,85 @@ def perfilpedidos(request):
 
     #Scripts
     listadoPedidos = PedidoCarrito.objects.all().filter(user=User.objects.get(id=request.user.id))
+
+    for pro in listadoPedidos:
+        pro.precio_totalSTR = "{:,}".format(pro.precio_total).replace(".","P").replace(",",".").replace("P",",")
+
+
     context["listadoPedidos"]=listadoPedidos
+
 
     return render(request, 'tienda/11_perfilpedidos.html', context)
 
 
 @login_required
-def perfilservicios(request):
+def verdetallepedido(request, id):
+
+    detalleCarrito = CarritoBoleta.objects.all()
+    
+    
+    detalleCarritoData = []
+    for pro in detalleCarrito:
+        if int(pro.carrito) == int(id):
+            detalleCarritoData.append(pro.id)
+
+    request.session["detallepedido"] = detalleCarritoData
+    return redirect('/tienda/cuenta/detallepedido')
+
+@login_required
+def perfildetallepedido(request):
+
     # context dict
     context = {}
+
+    # view url name
+    context["view"] = "perfildetallepedido"
+
+    # page head
+    context["title"]="Detalle Pedido - Paz y Floras"
+    context["icon"]="tienda/images/imagen2.png"
+    context["head"]="tienda/components/head.html"
+
+    # page general body info 
+    context["header"]="tienda/components/header.html"
+    context["footer"]="tienda/components/footer.html"
+
+    # page body blocks
+    context["contentperfil"] = "tienda/components/contentperfil.html"
+    context["sectioncuentanav"]="tienda/components/sectioncuentanav.html"
+    context["sectioncuentaview"]="tienda/components/sectioncuentadetallepedido.html"
+
+    # page data instructions
+    context["tipo"] = "perfil"
+    try:
+        items = request.session["detallepedido"]
+        productos = []
+        for proid in items:
+            print("Producto: " + str(proid))
+            item = CarritoBoleta.objects.get(id=proid)
+            productos.append(item)
+        for pro in productos:
+            pro.precioSTR = "{:,}".format(pro.precio).replace(".","P").replace(",",".").replace("P",",")
+        context["productos"] = productos
+    except:
+            context["productos"]=[]
+    
+    return render(request,"tienda/13_perfildetallepedido.html", context)
+
+
+@login_required
+def perfilservicios(request):
+
+    # context dict
+    context = {}
+
+    try:
+        context["mensaje"] = request.session["mensaje"] 
+        request.session["mensaje"] = ""       
+        context["clasesmensaje"] = request.session["clasesmensaje"]
+        request.session["clasesmensaje"] = ""
+    except:
+        pass
 
     # view url name
     context["view"] = "perfilservicios"
@@ -562,8 +655,58 @@ def perfilservicios(request):
     listadoServicio = PedidoServicio.objects.all().filter(user=User.objects.get(id=request.user.id))
     context["listadoServicio"]=listadoServicio
 
+    for ser in listadoServicio:
+        ser.precio_totalSTR = "{:,}".format(ser.precio_total).replace(".","P").replace(",",".").replace("P",",")
+
     return render(request, 'tienda/12_perfilservicios.html', context)
-   
+
+@login_required
+def verdetalleservicio(request, id):
+
+    detalleServicio = PedidoServicio.objects.all()
+        
+    detalleServicioData = ""
+    for ser in detalleServicio:
+        if int(ser.id) == int(id):
+            detalleServicioData = ser.terminos_acordados
+
+    request.session["detalleservicio"] = detalleServicioData
+    return redirect('/tienda/cuenta/detalleservicio')
+
+@login_required
+def perfildetalleservicio(request):
+
+    # context dict
+    context = {}
+
+    # view url name
+    context["view"] = "perfildetalleservicio"
+
+    # page head
+    context["title"]="Detalle Servicio - Paz y Floras"
+    context["icon"]="tienda/images/imagen2.png"
+    context["head"]="tienda/components/head.html"
+
+    # page general body info 
+    context["header"]="tienda/components/header.html"
+    context["footer"]="tienda/components/footer.html"
+
+    # page body blocks
+    context["contentperfil"] = "tienda/components/contentperfil.html"
+    context["sectioncuentanav"]="tienda/components/sectioncuentanav.html"
+    context["sectioncuentaview"]="tienda/components/sectioncuentadetalleservicio.html"
+
+    # page data instructions
+    context["tipo"] = "perfil"
+    try:
+        detalleservicio = request.session["detalleservicio"]
+        context["detalleservicio"] = detalleservicio
+    except:
+            context["detalleservicio"] = "No hay descripción"
+    
+    return render(request,"tienda/14_perfildetalleservicio.html", context)
+
+
 @login_required
 def perfilpagarcarritopagar(request, id):
     # context dict
@@ -621,6 +764,7 @@ def perfilpagarcarritowebpay(request, id):
     # page data instructions
     context["tipo"] = "perfil"
     context["id"] = id
+
     #scripts
     return render(request,"tienda/21_testingpagarpedidoproductos.html", context)
 

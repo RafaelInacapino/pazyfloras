@@ -38,7 +38,6 @@ def validate_image_size(image):
             [f'{error_message}\nEl tamaño de imagen debe cumplir con ancho entre {min_width} y {max_width} pixeles, y altura entre {min_height} y { max_height} pixeles.']
             )
 
-
 def validar_dimensiones_imagen(image):
     min_width = 700
     max_width = 1000
@@ -75,7 +74,6 @@ def validar_dimensiones_imagen(image):
             [f'{error_message}\nEl tamaño de imagen debe cumplir con ancho entre {min_width} y {max_width} pixeles, y altura entre {min_height} y { max_height} pixeles.']
             )
 
-
 def validar_dimensiones_foto(foto):
 
     error_escala = False
@@ -111,7 +109,6 @@ def validar_nombre_producto(nombre:str):
         raise ValidationError(
             [f'{error_message} El nombre debe ser solo alfabético.']
             )
-
 
 def validar_tipo_producto(tipo:str):
     tipos = ["vasija","macetero","planta"]
@@ -174,29 +171,48 @@ class PedidoCarrito(models.Model):
     fecha_retiro = models.DateField(null=True, blank=True)
     precio_total = models.IntegerField(null=True, blank=True, validators=[validar_numero_entero])
     estado = models.CharField( max_length=100,
-                                choices=estados, default='En espera',
-                                validators=[])
-    json = models.CharField(max_length=100, null=True, blank=True)
+                                choices=estados, default='En espera')
+
+
+class CarritoBoleta(models.Model):
+    tipos = [
+        ('vasija','vasija'),
+        ('macetero','macetero'),
+        ('planta','planta'),
+        ]
+    carrito = models.IntegerField(null=True, blank=True, validators=[validar_numero_entero])
+    producto = models.CharField( max_length=100)
+    tipo = models.CharField(    max_length=100,
+                                choices=tipos,
+                                validators=[validar_tipo_producto])
+    imagen = models.ImageField(upload_to='boletas', 
+                                null=True, blank=True,
+                                validators=[validar_dimensiones_imagen],)
+    precio = models.IntegerField(validators=[validar_numero_entero])
+    cantidad = models.IntegerField(validators=[validar_numero_entero])
 
 
 class PedidoServicio(models.Model):
 
     estados = [
         ('En espera','En espera'),
-        ('Pagar','Pagar'),
-        ('Pagado','Pagado'),
+        ('Realizar Primer Pago','Realizar Primer Pago'),
+        ('Pagado Primer Pago','Pagado Primer Pago'),
+        ('Realizar Segundo Pago','Realizar Segundo Pago'),
+        ('Pagado Segundo Pago','Pagado Segundo Pago'),
         ('Finalizado','Finalizado')
         ]
 
     user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, null=True, blank=True)
-    duracion = models.CharField(max_length=100, null=True, blank=True)
+    fecha_creacion = models.DateField(null=True, blank=True)
     fecha_inicio = models.DateField(null=True, blank=True)
     fecha_termino = models.DateField(null=True, blank=True)
-    area = models.FloatField(null=True, blank=True)
+    terminos_acordados = models.CharField(max_length=1024, null=True, blank=True)
     precio_total = models.IntegerField(validators=[validar_numero_entero])
     estado = models.CharField( max_length=100,
                                 choices=estados, default='En espera')
+
 
 class DatosCuenta(models.Model):
     usuario = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
@@ -212,7 +228,6 @@ class Testimonio(models.Model):
     nombre_cliente = models.CharField(max_length=1024)
     profesion_cliente = models.CharField(max_length=1024)
     testimonio_cliente = models.CharField(max_length=1024)
-
 
 
 class ItemCarrusel(models.Model):
