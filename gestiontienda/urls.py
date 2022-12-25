@@ -13,8 +13,12 @@ urlpatterns = [
     path('editarservicio/<int:id>', editarservicio),
     path('datostienda', datostienda),
     path('pedidoscarrito', pedidoscarrito),
+    path('verdetallepedido/<int:id>', verdetallepedido),
+    path('detallepedido', detallepedido),
+    path('editarpedidocarrito/', pedidoscarrito),
     path('editarpedidocarrito/<int:id>', editarpedidocarrito),
     path('pedidosservicio', pedidosservicio),
+    path('editarpedidoservicio/', pedidosservicio),
     path('editarpedidoservicio/<int:id>', editarpedidoservicio),
     path('datostienda', datostienda),
     path('editardatostienda', editardatostienda)

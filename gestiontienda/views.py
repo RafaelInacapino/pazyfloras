@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from tienda.models import Producto, Servicio, PedidoCarrito, PedidoServicio
-from gestiontienda.forms import ProductoForm, ServicioForm, PedidoCarritoForm, PedidoServicioForm
+from gestiontienda.forms import ProductoForm, ServicioForm, PedidoCarritoForm, PedidoServicioForm, PedidoServicioFormEditar, PedidoCarritoFormEditar
+from django.contrib.auth.models import User
 from gestiontienda.decorators import superuser_required 
 
 
@@ -457,9 +458,13 @@ def pedidoscarrito(request):
     ped = PedidoCarrito.objects.all()
     context["pedidoscarritos"] = ped
     for pro in context["pedidoscarritos"]:
+        user = User.objects.get(username=pro.user)
+        pro.username = user.username
         pro.precio_total_STR = "{:,}".format(pro.precio_total).replace(".","P").replace(",",".").replace("P",",")
     
     return render(request,'gestiontienda/7_listar_pedidoscarrito.html',context)
+
+import datetime
 
 @superuser_required
 def editarpedidocarrito(request, id):
@@ -494,25 +499,92 @@ def editarpedidocarrito(request, id):
     
     # Script    
     if request.method == 'POST':
-        formulario = PedidoCarritoForm(data=request.POST,files=request.FILES)
+        formulario = PedidoCarritoFormEditar(data=request.POST,files=request.FILES)
         if formulario.is_valid():
             ser = PedidoCarrito.objects.get(id=id)
             print(request.POST["estado"])
             ser.estado = request.POST["estado"]
+            date = request.POST["fecha_retiro"]
+            year = int(date[6:])
+            month = int(date[3:5])
+            day = int(date[0:2])
+            ser.fecha_retiro = datetime.date(year, month, day)
             ser.save()
             request.session['mensaje'] = 'Pedido de Carrito actualizado con éxito.'
             request.session["clasesmensaje"] = "alert alert-success bg-light bg-gradient text-center"
             return redirect(to='/gestiontienda/pedidoscarrito') 
         else:
-            context['form'] = PedidoCarritoForm(data=request.POST,files=request.FILES)
+            context["id"] = id
+            ped = PedidoCarrito.objects.all().get(id=id)
+            context['form'] = PedidoCarritoFormEditar(data=request.POST,files=request.FILES)
             context["mensaje"] = "Error al actualizar el pedido de carrito."
             context["clasesmensaje"] = "alert alert-danger bg-gradient text-center"
-            return render(request, 'gestiontienda/8_editar_pedidocarrito.html', context)            
+            return render(request, 'gestiontienda/8_editar_pedidocarrito.html', context)
     else:
         context["id"] = id
         ped = PedidoCarrito.objects.all().get(id=id)
-        context["form"] = PedidoCarritoForm(instance=ped)
+        context["form"] = PedidoCarritoFormEditar(instance=ped)
     return render(request,'gestiontienda/8_editar_pedidocarrito.html',context)
+
+from tienda.models import CarritoBoleta
+
+@superuser_required
+def verdetallepedido(request, id):
+
+    detalleCarrito = CarritoBoleta.objects.all()
+    
+    
+    detalleCarritoData = []
+    for pro in detalleCarrito:
+        if int(pro.carrito) == int(id):
+            detalleCarritoData.append(pro.id)
+
+    request.session["detallepedido"] = detalleCarritoData
+    return redirect('/gestiontienda/detallepedido')
+
+@superuser_required
+def detallepedido(request):
+
+    # context dict
+    context = {}
+
+    # view url name
+    context["view"] = "detallepedido"
+
+    # page head
+    context["title"]="Detalle Pedido - Paz y Floras"
+    context["icon"]="tiegestiontiendanda/images/imagen2.png"
+    context["head"]="gestiontienda/components/head.html"
+
+    # page general body info 
+    context["header"]="gestiontienda/components/header.html"
+    context["footer"]="gestiontienda/components/footer.html"
+
+    # page body blocks
+    context["content"] = "gestiontienda/components/content.html"
+    context["sectionnav"]="gestiontienda/components/sectionnav.html"
+    context["sectionview"]="gestiontienda/components/sectiondetallepedido.html"
+
+    # page data instructions
+    context["tipo"] = "perfil"
+    try:
+        items = request.session["detallepedido"]
+        productos = []
+        for proid in items:
+            print("Producto: " + str(proid))
+            item = CarritoBoleta.objects.get(id=proid)
+            productos.append(item)
+        context["productos"] = productos
+        for pro in productos:
+            pro.precioSTR = "{:,}".format(pro.precio).replace(".","P").replace(",",".").replace("P",",")
+
+    except:
+            context["productos"]=[]
+    
+    return render(request,"gestiontienda/13_ver_detallepedido.html", context)
+
+
+
 
 @superuser_required
 def pedidosservicio(request):
@@ -549,6 +621,8 @@ def pedidosservicio(request):
     ped = PedidoServicio.objects.all()
     context["pedidosservicios"] = ped
     for pro in context["pedidosservicios"]:
+        user = User.objects.get(username=pro.user)
+        pro.username = user.username
         pro.precio_total_STR = "{:,}".format(pro.precio_total).replace(".","P").replace(",",".").replace("P",",")
     
     return render(request,'gestiontienda/9_listar_pedidosservicio.html',context)
@@ -587,25 +661,37 @@ def editarpedidoservicio(request, id):
 
     # Script    
     if request.method == 'POST':
-        formulario = PedidoServicioForm(data=request.POST,files=request.FILES)
+        formulario = PedidoServicioFormEditar(data=request.POST,files=request.FILES)
         if formulario.is_valid():
             ser = PedidoServicio.objects.get(id=id)
-            print(request.POST["estado"])
             ser.estado = request.POST["estado"]
+            date1 = request.POST["fecha_inicio"]
+            year = int(date1[6:])
+            month = int(date1[3:5])
+            day = int(date1[0:2])
+            ser.fecha_inicio = datetime.date(year, month, day)
+            date2 = request.POST["fecha_termino"]
+            year = int(date2[6:])
+            month = int(date2[3:5])
+            day = int(date2[0:2])
+            ser.fecha_termino = datetime.date(year, month, day)
+            ser.terminos_acordados = request.POST["terminos_acordados"]
             ser.save()
             request.session['mensaje'] = 'Pedido de Servicio actualizado con éxito.'
             request.session["clasesmensaje"] = "alert alert-success bg-gradient text-center"
             ser.save()
             return redirect(to='/gestiontienda/pedidosservicio') 
         else:
-            context['form'] = PedidoServicioForm(data=request.POST,files=request.FILES)
+            context["id"] = id
+            ser = PedidoServicio.objects.all().get(id=id)
+            context['form'] = PedidoServicioFormEditar(data=request.POST,files=request.FILES)
             context["mensaje"] = "Error al actualizar el pedido de servicio."
             context["clasesmensaje"] = "alert alert-danger bg-gradient text-center"
             return render(request, 'gestiontienda/10_editarpedidoservicio.html', context)            
     else:
         context["id"] = id
         ser = PedidoServicio.objects.all().get(id=id)
-        context["form"] = PedidoServicioForm(instance=ser)
+        context["form"] = PedidoServicioFormEditar(instance=ser)
     return render(request,'gestiontienda/10_editarpedidoservicio.html',context)
 
 
